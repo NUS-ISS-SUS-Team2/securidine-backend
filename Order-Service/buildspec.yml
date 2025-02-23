@@ -5,8 +5,10 @@ phases:
     runtime-versions:
       java: openjdk17
     commands:
-      echo "Installing dependencies"
-      mvn install -DskipTests=true
+      echo "Building the Spring Boot application"
+      cd Order-Service
+      mvn clean package -DskipTests
+
   pre_build:
     commands:
       - echo Logging in to Amazon ECR...
