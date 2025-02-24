@@ -4,11 +4,13 @@ phases:
   install:
     runtime-versions:
       java: 17
-      maven: 3.8
     commands:
-      echo "Building the Spring Boot application"
-      cd Order-Service
-      mvn clean package -DskipTests
+      - echo "Installing Maven..."
+      - yum update -y
+      - yum install -y maven
+      - echo "Building the Spring Boot application"
+      - cd Order-Service
+      - mvn clean package -DskipTests
 
   pre_build:
     commands:
