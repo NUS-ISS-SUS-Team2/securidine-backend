@@ -6,8 +6,11 @@ phases:
       java: 17
     commands:
       - echo "Installing Maven..."
-      - yum update -y
-      - yum install -y maven
+      - curl -sL https://downloads.apache.org/maven/maven-3/3.9.6/binaries/apache-maven-3.9.6-bin.tar.gz -o maven.tar.gz
+      - tar -xvzf maven.tar.gz
+      - mv apache-maven-3.9.6 /opt/maven
+      - export PATH=/opt/maven/bin:$PATH
+      - mvn -version
       - echo "Building the Spring Boot application"
       - cd Order-Service
       - mvn clean package -DskipTests
