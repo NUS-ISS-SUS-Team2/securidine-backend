@@ -3,7 +3,8 @@ version: 0.2
 phases:
   install:
     runtime-versions:
-      java: openjdk17
+      java: 17
+      maven: 3.8
     commands:
       echo "Building the Spring Boot application"
       cd Order-Service
@@ -15,6 +16,7 @@ phases:
       - aws ecr get-login-password --region $AWS_DEFAULT_REGION | docker login --username AWS --password-stdin $REPOSITORY_URI
   build:
     commands:
+      - cd ..
       - echo Building the Docker image...
       - docker build -t order-service ./Order-Service
       - docker tag order-service:latest $REPOSITORY_URI:latest
