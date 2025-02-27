@@ -33,8 +33,9 @@ phases:
       
 artifacts:
   files:
-    - '**/*'
-  discard-paths: yes
+    - 'Order-Service/appspec.yml'
+    - 'Order-Service/scripts/**/*'
+  discard-paths: no
 
 cache:
   paths:
