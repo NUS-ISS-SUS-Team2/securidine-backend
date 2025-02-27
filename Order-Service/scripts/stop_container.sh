@@ -1,4 +1,4 @@
 #!/bin/bash
-echo "Stopping existing container..."
-docker stop order-service || true
-docker rm order-service || true
+echo "Stopping existing containers..."
+docker ps -q | xargs -r docker stop || echo "No running containers to stop"
+
