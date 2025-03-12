@@ -3,10 +3,8 @@ version: 0.2
 phases:
   install:
     runtime-versions:
-      java: 17
+      java: corretto17
     commands:
-      - export JAVA_HOME=/usr/lib/jvm/java-17-amazon-corretto
-      - export PATH=$JAVA_HOME/bin:$PATH
       - echo "Installing Maven..."
       - curl -sL https://downloads.apache.org/maven/maven-3/3.9.6/binaries/apache-maven-3.9.6-bin.tar.gz -o maven.tar.gz
       - tar -xvzf maven.tar.gz
