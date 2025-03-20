@@ -6,7 +6,17 @@ import java.util.Base64;
 
 public class AESUtil {
     private static final String ALGORITHM = "AES";
-    private static final byte[] SECRET_KEY = "SecureSeedNum12321".getBytes(); // Use a secure key!
+    private static byte[] SECRET_KEY;
+
+    // Static block to initialize the key from AWS Secrets Manager
+    static {
+        try {
+            String keyString = SecretManagerUtil.getAESKey(); // Fetch from Secrets Manager
+            SECRET_KEY = keyString.getBytes(); // Convert to byte array
+        } catch (Exception e) {
+            throw new RuntimeException("Error retrieving AES key from Secrets Manager", e);
+        }
+    }
 
     public static String encrypt(String data) throws Exception {
         Cipher cipher = Cipher.getInstance(ALGORITHM);
