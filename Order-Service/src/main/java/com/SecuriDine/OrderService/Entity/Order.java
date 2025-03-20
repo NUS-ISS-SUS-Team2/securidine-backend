@@ -9,8 +9,11 @@ import jakarta.persistence.Table;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 import com.SecuriDine.OrderService.DTO.OrderDTO;
+import com.SecuriDine.OrderService.Util.AESUtil;
+import com.SecuriDine.OrderService.Util.HMACUtil;
 
 @Entity
 @Table(name = "orders")
@@ -32,20 +35,34 @@ public class Order {
     @Column(name = "total_price")
     private Float totalPrice;
     
-    public String getCustomerName() {
-		return customerName;
+    @Column(name = "hmac_string", nullable = false)
+    private String hmac;
+
+    public void computeHMAC() throws Exception {
+        String data = customerName + deliveryAddress + totalPrice;
+        this.hmac = HMACUtil.generateHMAC(data);
+    }
+
+    public boolean verifyHMAC() throws Exception {
+        String data = customerName + deliveryAddress + totalPrice;
+        return HMACUtil.verifyHMAC(data, this.hmac);
+    }
+
+    
+    public String getCustomerName() throws Exception {
+		return AESUtil.decrypt(customerName);
 	}
 
-	public void setCustomerName(String customerName) {
-		this.customerName = customerName;
+	public void setCustomerName(String customerName) throws Exception {
+		this.customerName = AESUtil.encrypt(customerName);
 	}
 
-	public String getDeliveryAddress() {
-		return deliveryAddress;
+	public String getDeliveryAddress() throws Exception {
+		return AESUtil.decrypt(deliveryAddress);
 	}
 
-	public void setDeliveryAddress(String deliveryAddress) {
-		this.deliveryAddress = deliveryAddress;
+	public void setDeliveryAddress(String deliveryAddress) throws Exception {
+		this.deliveryAddress = AESUtil.encrypt(deliveryAddress);
 	}
 	
 	public LocalDateTime getOrderDate() {

@@ -55,11 +55,15 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public OrderDTO save(OrderDTO OrderDTO) {
     	Order OrderEntity = new Order();
-        OrderEntity.setCustomerName(OrderDTO.getCustomerName());
+        try {
+			OrderEntity.setCustomerName(OrderDTO.getCustomerName());
+			OrderEntity.setDeliveryAddress(OrderDTO.getDeliveryAddress());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
         OrderEntity.setOrderDate(OrderDTO.getOrderDate());
         OrderEntity.setTotalPrice(OrderDTO.getTotalPrice());
-
-
         Order savedEntity = OrderRepository.save(OrderEntity);
         return savedEntity.convertToDTO();
     }
@@ -72,7 +76,12 @@ public class OrderServiceImpl implements OrderService {
     public OrderDTO convertToDTO(Order Order) {
     	OrderDTO dto = new OrderDTO();
         dto.setOrderId(Order.getOrderId());
-        dto.setCustomerName(Order.getCustomerName());
+        try {
+			dto.setCustomerName(Order.getCustomerName());
+			dto.setDeliveryAddress(Order.getDeliveryAddress());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
         dto.setOrderDate(Order.getOrderDate());
         dto.setTotalPrice(Order.getTotalPrice());
         return dto;

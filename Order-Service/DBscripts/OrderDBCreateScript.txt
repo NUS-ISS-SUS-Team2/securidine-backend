@@ -3,5 +3,6 @@ CREATE TABLE orders (
     customer_name VARCHAR(255) NOT NULL,
     delivery_address TEXT NOT NULL,
     order_date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    total_price DECIMAL(10,2) NOT NULL
+    total_price DECIMAL(10,2) NOT NULL,
+    hmac_string VARCHAR(255) NOT NULL;
 );
