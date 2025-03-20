@@ -15,9 +15,6 @@ docker pull 302125150179.dkr.ecr.ap-southeast-1.amazonaws.com/nus-iss-sus-team2/
 
 SECRET=$(aws secretsmanager get-secret-value --secret-id SecretsManagerIamKeys --query SecretString --output text)
 
-AWS_ACCESS_KEY_ID=$(echo $SECRET | jq -r .AWS_ACCESS_KEY_ID)
-AWS_SECRET_ACCESS_KEY=$(echo $SECRET | jq -r .AWS_SECRET_ACCESS_KEY)
-
 echo "Running Docker container..."
 docker run -e AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID \
            -e AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY \
