@@ -98,14 +98,6 @@ public class Order {
     	this.orderDate = orderDate;
         this.totalPrice = totalPrice;
     }
-    	
-    public Order(String customerName, String deliveryAddress, LocalDateTime orderDate, Float totalPrice, String hmac) {
-        this.customerName = customerName;
-        this.deliveryAddress = deliveryAddress;
-    	this.orderDate = orderDate;
-        this.totalPrice = totalPrice;
-        this.hmac = hmac;
-    }
     
     public OrderDTO convertToDTO() {
         OrderDTO dto = new OrderDTO();
