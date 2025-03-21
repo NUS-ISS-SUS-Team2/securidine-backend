@@ -28,14 +28,16 @@ public class StartupDataLoader implements CommandLineRunner {
         // Encrypt fields
         String encryptedName = AESUtil.encrypt(customerName);
         String encryptedAddress = AESUtil.encrypt(deliveryAddress);
-        String encryptedPrice = AESUtil.encrypt(String.valueOf(totalPrice));
+        
+        //Leave price encryption out first as DB stores in float instead of string
+        //String encryptedPrice = AESUtil.encrypt(String.valueOf(totalPrice));
 
         // Generate HMAC
-        String hmac = HMACUtil.generateHMAC(encryptedName + encryptedAddress + encryptedPrice);
+        String hmac = HMACUtil.generateHMAC(encryptedName + encryptedAddress + totalPrice);
 
         // Insert into database
         String sql = "INSERT INTO orders (customer_name, delivery_address, order_date, total_price, hmac) VALUES (?, ?, ?, ?, ?)";
-        jdbcTemplate.update(sql, encryptedName, encryptedAddress, orderDate, encryptedPrice, hmac);
+        jdbcTemplate.update(sql, encryptedName, encryptedAddress, orderDate, totalPrice, hmac);
 
         System.out.println("Order inserted on startup with encryption and HMAC!");
     }
