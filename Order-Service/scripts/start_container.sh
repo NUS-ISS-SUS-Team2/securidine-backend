@@ -13,10 +13,6 @@ aws ecr get-login-password --region ap-southeast-1 | docker login --username AWS
 echo "Pulling latest Docker image..."
 docker pull 302125150179.dkr.ecr.ap-southeast-1.amazonaws.com/nus-iss-sus-team2/securidine:latest
 
-SECRET=$(aws secretsmanager get-secret-value --secret-id SecretsManagerIamKeys --query SecretString --output text)
-
 echo "Running Docker container..."
-docker run -e AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID \
-           -e AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY \
-           -e AWS_DEFAULT_REGION=ap-southeast-1 \
-           -d -p 8080:8080 --name order-service 302125150179.dkr.ecr.ap-southeast-1.amazonaws.com/nus-iss-sus-team2/securidine:latest
+docker run -d -p 8080:8080 --name order-service 302125150179.dkr.ecr.ap-southeast-1.amazonaws.com/nus-iss-sus-team2/securidine:latest
+
