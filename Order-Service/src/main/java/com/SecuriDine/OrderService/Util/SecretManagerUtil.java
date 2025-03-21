@@ -26,13 +26,17 @@ public class SecretManagerUtil {
             // Retrieve secret value from AWS Secrets Manager
             response = client.getSecretValue(request);
 
-            // Check if the secret is returned as a string
+            // Extract the secret value
             String secretString = response.secretString();
             if (secretString != null) {
-                // Parse the JSON response to get the AES key
-                ObjectMapper objectMapper = new ObjectMapper();
-                JsonNode jsonNode = objectMapper.readTree(secretString);
-                return jsonNode.get("AES_KEY").asText();
+                // Manually extract the AES_KEY from the raw string
+                if (secretString.contains(":")) {
+                    String[] parts = secretString.split(":");
+                    if (parts.length == 2) {
+                        return parts[1].trim().replace("\"", ""); // Remove quotes
+                    }
+                }
+                throw new RuntimeException("Invalid secret format: " + secretString);
             } else {
                 throw new RuntimeException("No secret string found in response.");
             }
