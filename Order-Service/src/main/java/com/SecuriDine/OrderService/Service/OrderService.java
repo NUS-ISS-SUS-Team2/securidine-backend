@@ -17,5 +17,7 @@ public interface OrderService {
 
 	OrderDTO save(OrderDTO OrderDTO);
 
+	Optional<Order> getOrderById(Long orderId) throws Exception;
+
 }
 

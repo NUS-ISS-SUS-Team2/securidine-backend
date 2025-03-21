@@ -35,15 +35,41 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public List<OrderDTO> getAllOrders() {
     	LOGGER.info("LOG FOR BZ - In GET ALL Order");
-    	Stream<Order> Orderstream = StreamSupport.stream(OrderRepository.findAll().spliterator(), false);
+    	Stream<Order> Orderstream = StreamSupport.stream(OrderRepository
+    								.findAll().spliterator(), false)
+					                .filter(order -> {
+					                    try {
+					                        boolean isValid = order.verifyHMAC();
+					                        if (!isValid) {
+					                            LOGGER.warn("HMAC verification failed for order ID: " + order.getOrderId());
+					                        }
+					                        return isValid;
+					                    } catch (Exception e) {
+					                        LOGGER.error("Error verifying HMAC for order ID: " + order.getOrderId(), e);
+					                        return false;  // Exclude corrupted orders
+					                    }
+					                });
         
     	//to log stream 
-    	List<Order> list = OrderRepository.findAll();
-    	System.out.println("Contents of the get all Order: " + list);
+    	//List<Order> list = OrderRepository.findAll();
+    	//System.out.println("Contents of the get all Order: " + list);
     	
     	return Orderstream
                 .map(this::convertToDTO)
                 .collect(Collectors.toList());
+    }
+    
+    @Override
+    public Optional<Order> getOrderById(Long orderId) throws Exception {
+        Optional<Order> orderOptional = OrderRepository.findById(orderId);
+        if (orderOptional.isPresent()) {
+            Order order = orderOptional.get();
+            if (!order.verifyHMAC()) {
+                throw new SecurityException("Data integrity check failed! HMAC mismatch.");
+            }
+            return Optional.of(order);
+        }
+        return Optional.empty();
     }
 
     @Override
