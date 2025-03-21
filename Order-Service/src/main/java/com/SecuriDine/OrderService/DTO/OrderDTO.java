@@ -17,6 +17,15 @@ public class OrderDTO {
     private LocalDateTime orderDate;
     private Float totalPrice;
 
+	public OrderDTO() {
+    }
+
+    public OrderDTO(String customerName,LocalDateTime orderDate, Float totalPrice) {
+        this.customerName = customerName;
+    	this.orderDate = orderDate;
+        this.totalPrice = totalPrice;
+    }
+    
 	public String getCustomerName() {
 		return customerName;
 	}
@@ -57,14 +66,5 @@ public class OrderDTO {
 		OrderId = orderId;
 	}
 
-	public OrderDTO() {
-    }
-
-    public OrderDTO(String customerName,LocalDateTime orderDate, Float totalPrice) {
-        this.customerName = customerName;
-    	this.orderDate = orderDate;
-        this.totalPrice = totalPrice;
-    }
- 	
 
 }

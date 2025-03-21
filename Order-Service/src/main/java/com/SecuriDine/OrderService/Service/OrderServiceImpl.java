@@ -58,12 +58,12 @@ public class OrderServiceImpl implements OrderService {
         try {
 			OrderEntity.setCustomerName(OrderDTO.getCustomerName());
 			OrderEntity.setDeliveryAddress(OrderDTO.getDeliveryAddress());
+	        OrderEntity.setOrderDate(OrderDTO.getOrderDate());
+	        OrderEntity.setTotalPrice(OrderDTO.getTotalPrice());
+	        OrderEntity.computeHMAC();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
-        OrderEntity.setOrderDate(OrderDTO.getOrderDate());
-        OrderEntity.setTotalPrice(OrderDTO.getTotalPrice());
         Order savedEntity = OrderRepository.save(OrderEntity);
         return savedEntity.convertToDTO();
     }
@@ -79,11 +79,11 @@ public class OrderServiceImpl implements OrderService {
         try {
 			dto.setCustomerName(Order.getCustomerName());
 			dto.setDeliveryAddress(Order.getDeliveryAddress());
+	        dto.setOrderDate(Order.getOrderDate());
+	        dto.setTotalPrice(Order.getTotalPrice());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-        dto.setOrderDate(Order.getOrderDate());
-        dto.setTotalPrice(Order.getTotalPrice());
         return dto;
     }
 }

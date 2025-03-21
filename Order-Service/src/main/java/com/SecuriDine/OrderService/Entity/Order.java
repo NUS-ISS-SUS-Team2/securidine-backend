@@ -38,7 +38,7 @@ public class Order {
     @Column(name = "hmac_string", nullable = false)
     private String hmac;
 
-    public void computeHMAC() throws Exception {
+	public void computeHMAC() throws Exception {
         String data = customerName + deliveryAddress + totalPrice;
         this.hmac = HMACUtil.generateHMAC(data);
     }
@@ -99,7 +99,14 @@ public class Order {
         this.totalPrice = totalPrice;
     }
     	
-
+    public Order(String customerName, String deliveryAddress, LocalDateTime orderDate, Float totalPrice, String hmac) {
+        this.customerName = customerName;
+        this.deliveryAddress = deliveryAddress;
+    	this.orderDate = orderDate;
+        this.totalPrice = totalPrice;
+        this.hmac = hmac;
+    }
+    
     public OrderDTO convertToDTO() {
         OrderDTO dto = new OrderDTO();
         dto.setOrderId(this.OrderId);

@@ -36,7 +36,7 @@ public class StartupDataLoader implements CommandLineRunner {
         String hmac = HMACUtil.generateHMAC(encryptedName + encryptedAddress + totalPrice);
 
         // Insert into database
-        String sql = "INSERT INTO orders (customer_name, delivery_address, order_date, total_price, hmac) VALUES (?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO orders (customer_name, delivery_address, order_date, total_price, hmac_string) VALUES (?, ?, ?, ?, ?)";
         jdbcTemplate.update(sql, encryptedName, encryptedAddress, orderDate, totalPrice, hmac);
 
         System.out.println("Order inserted on startup with encryption and HMAC!");
