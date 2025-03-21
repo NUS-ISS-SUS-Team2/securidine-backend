@@ -1,12 +1,12 @@
 # securidine-backend
-[To save effort, it will be deployed using one DB for all microservices to feed off.]
+[To save effort, it will be deployed using one DB for all microservices to feed off. Just secure this one DB (Security concepts focus, not scalable systems)]
 
 Backend will be done using Springboot to manage each service's API logic.
 
-Current DB source is from BZ's personal AWS account RDS formed using the cloudformation template on another stack.
+Current DB source is from BZ's personal AWS account RDS (MySQL engine) formed using the cloudformation template RDS stack. Accessed through RDS endpoint, CLI installed in EC2 with cloudformation main stack so can access via the Order instance as well. 
 
-Security measures implemented so far for getAllOrders and getOrderByID
+Security measures implemented so far for methods getAllOrders and getOrderByID
 
-AES Security key stored in AWS secrets manager and brought in via client code in SecretManegerUtil. Needs to do the same (another one) for HMAC key as well.
+AES Security key stored in AWS secrets manager and brought in via client code in SecretManagerUtil. Needs to do the same (another key saved in AWS-SM) for HMAC key as well.
 
-DB is stored encrypted for strings and HMAC verification will omit the tampered row (alter via db etc) via the serviceImpl stream function.
+DB data is stored encrypted for strings columns. HMAC verification will omit the tampered row via the serviceImpl stream function (test via alter with db).
