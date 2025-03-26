@@ -29,17 +29,10 @@ phases:
     commands:
       - echo "Building the Spring Boot application..."
       - cd Order-Service
-      - mvn clean package -DskipTests  # Ensure Java files are compiled
+      - mvn clean package -DskipTests
       
       - echo "Running SonarCloud scan..."
-      - sonar-scanner \
-          -Dsonar.organization="$SONAR_ORG" \
-          -Dsonar.projectKey="$SONAR_PROJECT_KEY" \
-          -Dsonar.sources="src/main/java" \
-          -Dsonar.host.url="https://sonarcloud.io" \
-          -Dsonar.login="$SONAR_TOKEN" \
-          -Dsonar.java.binaries="target/classes"  # Ensures analysis includes compiled classes
-
+      - sonar-scanner -Dsonar.organization="$SONAR_ORG" -Dsonar.projectKey="$SONAR_PROJECT_KEY" -Dsonar.sources="." -Dsonar.host.url="https://sonarcloud.io" -Dsonar.login="$SONAR_TOKEN"
       - cd ..
 
       - echo "Building the Docker image..."
