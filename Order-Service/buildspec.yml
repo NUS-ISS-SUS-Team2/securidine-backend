@@ -12,31 +12,43 @@ phases:
       - unzip -o $HOME/.sonar/sonar-scanner.zip -d $HOME/.sonar/
       - export PATH=$SONAR_SCANNER_HOME/bin:$PATH
       - export SONAR_SCANNER_OPTS="-server"
+      
       - echo "Installing Maven..."
       - curl -sL https://downloads.apache.org/maven/maven-3/3.9.6/binaries/apache-maven-3.9.6-bin.tar.gz -o maven.tar.gz
       - tar -xvzf maven.tar.gz
       - mv apache-maven-3.9.6 /opt/maven
       - export PATH=/opt/maven/bin:$PATH
       - mvn -version
-      - echo "Building the Spring Boot application"
-      - cd Order-Service
-      - mvn clean package -DskipTests
 
   pre_build:
     commands:
-      - echo "Running SonarCloud scan..."
-      - sonar-scanner -Dsonar.organization="$SONAR_ORG" -Dsonar.projectKey="$SONAR_PROJECT_KEY" -Dsonar.sources="." -Dsonar.host.url="https://sonarcloud.io" -Dsonar.login="$SONAR_TOKEN"
       - echo Logging in to Amazon ECR...
       - aws ecr get-login-password --region $AWS_DEFAULT_REGION | docker login --username AWS --password-stdin $REPOSITORY_URI
+
   build:
     commands:
+      - echo "Building the Spring Boot application..."
+      - cd Order-Service
+      - mvn clean package -DskipTests  # Ensure Java files are compiled
+      
+      - echo "Running SonarCloud scan..."
+      - sonar-scanner \
+          -Dsonar.organization="$SONAR_ORG" \
+          -Dsonar.projectKey="$SONAR_PROJECT_KEY" \
+          -Dsonar.sources="src/main/java" \
+          -Dsonar.host.url="https://sonarcloud.io" \
+          -Dsonar.login="$SONAR_TOKEN" \
+          -Dsonar.java.binaries="target/classes"  # Ensures analysis includes compiled classes
+
       - cd ..
-      - echo Building the Docker image...
+
+      - echo "Building the Docker image..."
       - docker build -t order-service ./Order-Service
       - docker tag order-service:latest $REPOSITORY_URI:latest
+
   post_build:
     commands:
-      - echo Pushing the Docker image to ECR...
+      - echo "Pushing the Docker image to ECR..."
       - docker push $REPOSITORY_URI:latest
       - echo "Image pushed to $REPOSITORY_URI"
       
