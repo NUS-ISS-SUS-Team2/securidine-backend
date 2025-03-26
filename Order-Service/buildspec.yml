@@ -50,6 +50,7 @@ artifacts:
   files:
     - 'Order-Service/appspec.yml'
     - 'Order-Service/scripts/**/*'
+    - 'Order-Service/buildspec-security.yml'
   discard-paths: no
 
 cache:
