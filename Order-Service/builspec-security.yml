@@ -1,0 +1,27 @@
+version: 0.2
+
+phases:
+  install:
+    commands:
+      - echo "Installing OWASP ZAP..."
+      - curl -sLo zap.tar.gz https://github.com/zaproxy/zaproxy/releases/download/v2.16.1/ZAP_2.16.1_Linux.tar.gz
+      - tar -xzf zap.tar.gz -C /opt
+      - export ZAP_HOME=/opt/ZAP_2.14.0
+      - export PATH=$ZAP_HOME:$PATH
+
+  build:
+    commands:
+      - echo "Running OWASP ZAP API scan on $API_URL..."
+      - $ZAP_HOME/zap.sh -cmd -quickurl $API_URL -quickout zap_report.json
+      - echo "Checking for High-Risk vulnerabilities..."
+      - cat zap_report.json | jq '.site[].alerts[] | select(.risk=="High")' > high_risk_alerts.json
+      - if [ -s high_risk_alerts.json ]; then echo "High-risk vulnerabilities found!"; fi
+
+  post_build:
+    commands:
+      - echo "OWASP ZAP scan completed."
+      
+artifacts:
+  files:
+    - 'zap_report.json'
+  discard-paths: no
