@@ -17,7 +17,7 @@ phases:
       - ls -lah reports/
       - echo "Checking for High-Risk vulnerabilities..."
       - cat zap_report.json | jq '.site[].alerts[] | select(.risk=="High")' > high_risk_alerts.json
-      - if [ -s high_risk_alerts.json ]; then echo "High-risk vulnerabilities found!";
+      - if [ -s high_risk_alerts.json ]; then echo "High-risk vulnerabilities found!"; fi
       - echo "Uploading report to S3..."
       - aws s3 cp reports/zap_report.json s3://your-security-reports-bucket/zap_report_$(date +%F_%T).json
 
