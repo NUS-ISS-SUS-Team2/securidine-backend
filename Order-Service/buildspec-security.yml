@@ -12,10 +12,14 @@ phases:
   build:
     commands:
       - echo "Running OWASP ZAP API scan on $API_URL..."
+      - mkdir -p reports
       - $ZAP_HOME/zap.sh -cmd -quickurl $API_URL -quickout zap_report.json
+      - ls -lah reports/
       - echo "Checking for High-Risk vulnerabilities..."
       - cat zap_report.json | jq '.site[].alerts[] | select(.risk=="High")' > high_risk_alerts.json
-      - if [ -s high_risk_alerts.json ]; then echo "High-risk vulnerabilities found!"; fi
+      - if [ -s high_risk_alerts.json ]; then echo "High-risk vulnerabilities found!";
+      - echo "Uploading report to S3..."
+      - aws s3 cp reports/zap_report.json s3://your-security-reports-bucket/zap_report_$(date +%F_%T).json
 
   post_build:
     commands:
@@ -23,5 +27,5 @@ phases:
       
 artifacts:
   files:
-    - 'zap_report.json'
+    - reports/zap_report.json
   discard-paths: no
