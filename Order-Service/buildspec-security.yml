@@ -6,7 +6,7 @@ phases:
       - echo "Installing OWASP ZAP..."
       - curl -sLo zap.tar.gz https://github.com/zaproxy/zaproxy/releases/download/v2.16.1/ZAP_2.16.1_Linux.tar.gz
       - tar -xzf zap.tar.gz -C /opt
-      - export ZAP_HOME=/opt/ZAP_2.14.0
+      - export ZAP_HOME=/opt/ZAP_2.16.1
       - export PATH=$ZAP_HOME:$PATH
 
   build:
