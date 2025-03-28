@@ -12,11 +12,11 @@ phases:
   build:
     commands:
       - echo "Running OWASP ZAP API scan on $API_URL..."
-      - mkdir -p reports
-      - $ZAP_HOME/zap.sh -cmd -quickurl $API_URL -quickout reports/zap_report.json
-      - ls -lah reports/
+      - mkdir -p /tmp/reports
+      - $ZAP_HOME/zap.sh -cmd -quickurl $API_URL -quickout /tmp/reports/zap_report.json
+      - ls -lah /tmp/reports/
       - echo "Uploading report to S3..."
-      - aws s3 cp reports/zap_report.json s3://$REPORT_BUCKET/zap_report_$(date +%F_%T).json
+      - aws s3 cp /tmp/reports/zap_report.json s3://$REPORT_BUCKET/zap_report_$(date +%F_%T).json
 
   post_build:
     commands:
