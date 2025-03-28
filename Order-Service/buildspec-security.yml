@@ -24,6 +24,5 @@ phases:
       
 artifacts:
   files:
-    - reports/zap_report.json
+    - /tmp/reports/zap_report.json
   discard-paths: no
-  base-directory: reports/
