@@ -13,7 +13,7 @@ phases:
     commands:
       - echo "Running OWASP ZAP API scan on $API_URL..."
       - mkdir -p reports
-      - $ZAP_HOME/zap.sh -cmd -quickurl $API_URL -quickout zap_report.json
+      - $ZAP_HOME/zap.sh -cmd -quickurl $API_URL -quickout reports/zap_report.json
       - ls -lah reports/
       - echo "Uploading report to S3..."
       - aws s3 cp reports/zap_report.json s3://$REPORT_BUCKET/zap_report_$(date +%F_%T).json
