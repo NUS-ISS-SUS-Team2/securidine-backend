@@ -8,7 +8,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class SecretManagerUtil {
 
-    private static final String SECRET_NAME = "SecuridineAESKey";
+    private static final String AES_SECRET_NAME = "SecuridineAESKey";
+    private static final String HMAC_SECRET_NAME = "SecuridineHMACKey";
     private static final Region REGION = Region.of("ap-southeast-1");  // Set your desired region
 
     public static String getAESKey() {
@@ -17,7 +18,45 @@ public class SecretManagerUtil {
                 .build();
 
         GetSecretValueRequest request = GetSecretValueRequest.builder()
-                .secretId(SECRET_NAME)
+                .secretId(AES_SECRET_NAME)
+                .build();
+
+        GetSecretValueResponse response;
+
+        try {
+            // Retrieve secret value from AWS Secrets Manager
+            response = client.getSecretValue(request);
+
+            // Extract the secret value
+            String secretString = response.secretString();
+            if (secretString != null) {
+                // Manually extract the AES_KEY from the raw string
+                if (secretString.contains(":")) {
+                    String[] parts = secretString.split(":");
+                    if (parts.length == 2) {
+                        return parts[1].trim().replace("\"", ""); // Remove quotes
+                    }
+                }
+                throw new RuntimeException("Invalid secret format: " + secretString);
+            } else {
+                throw new RuntimeException("No secret string found in response.");
+            }
+
+        } catch (Exception e) {
+            // Log and rethrow the exception for debugging
+            throw new RuntimeException("Error retrieving secret from AWS Secrets Manager", e);
+        } finally {
+            client.close(); // Close the SecretsManagerClient to release resources
+        }
+    }
+    
+    public static String getHMACKey() {
+        SecretsManagerClient client = SecretsManagerClient.builder()
+                .region(REGION)
+                .build();
+
+        GetSecretValueRequest request = GetSecretValueRequest.builder()
+                .secretId(HMAC_SECRET_NAME)
                 .build();
 
         GetSecretValueResponse response;
