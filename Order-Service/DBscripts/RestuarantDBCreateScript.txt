@@ -1,0 +1,7 @@
+CREATE TABLE restaurants (
+    restaurant_id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    restaurant_name VARCHAR(255) NOT NULL,
+    location TEXT NOT NULL,
+    hmac_string VARCHAR(255) NOT NULL
+);
+

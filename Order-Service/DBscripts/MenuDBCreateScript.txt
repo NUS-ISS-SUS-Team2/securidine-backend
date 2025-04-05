@@ -1,0 +1,9 @@
+CREATE TABLE menu_items (
+    menu_id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    item_name VARCHAR(255) NOT NULL,
+    description TEXT NOT NULL,
+    price DECIMAL(10,2) NOT NULL,
+    hmac_string VARCHAR(255) NOT NULL,
+    restaurant_id BIGINT NOT NULL,
+    FOREIGN KEY (restaurant_id) REFERENCES restaurants(restaurant_id)
+);

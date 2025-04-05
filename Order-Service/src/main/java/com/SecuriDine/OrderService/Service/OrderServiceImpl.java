@@ -4,6 +4,10 @@ import com.SecuriDine.OrderService.DTO.OrderDTO;
 import com.SecuriDine.OrderService.Entity.Order;
 import com.SecuriDine.OrderService.Repository.OrderRepository;
 
+
+
+
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
@@ -20,12 +24,17 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
 
+
 @Component
 public class OrderServiceImpl implements OrderService {
 	
     private static final Logger LOGGER = LoggerFactory.getLogger(OrderServiceImpl.class);
 	
     private OrderRepository OrderRepository;
+
+    
+
+  
 
     @Autowired
     public OrderServiceImpl(OrderRepository OrderRepository) {
@@ -112,4 +121,13 @@ public class OrderServiceImpl implements OrderService {
 		}
         return dto;
     }
+
+
+    
+
+    
+
+
+    
+
 }

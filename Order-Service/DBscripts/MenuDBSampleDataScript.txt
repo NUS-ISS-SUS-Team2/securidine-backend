@@ -1,0 +1,7 @@
+INSERT INTO menu_items (item_name, description, price, hmac_string, restaurant_id)
+VALUES 
+    ('Cheese Pizza', 'Classic cheese pizza with mozzarella and parmesan', 14.99, 'sample-hmac-menu-1', 1),
+    ('Bacon Burger', 'Juicy burger with crispy bacon and cheddar cheese', 10.99, 'sample-hmac-menu-2', 2),
+    ('Salmon Sushi', 'Fresh salmon sushi rolls with wasabi and soy sauce', 12.99, 'sample-hmac-menu-3', 3),
+    ('Veggie Pizza', 'Veggie pizza with mushrooms, bell peppers, and onions', 13.99, 'sample-hmac-menu-4', 1),
+    ('Chicken Burger', 'Grilled chicken burger with lettuce and tomato', 9.99, 'sample-hmac-menu-5', 2);

@@ -1,0 +1,5 @@
+INSERT INTO restaurants (restaurant_name, location, hmac_string)
+VALUES 
+    ('Pizza Palace', '123 Main Street, Springfield', 'sample-hmac-1'),
+    ('Burger Barn', '456 Oak Avenue, Metropolis', 'sample-hmac-2'),
+    ('Sushi Spot', '789 Pine Road, Gotham', 'sample-hmac-3');
