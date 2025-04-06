@@ -24,17 +24,12 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
 
-
 @Component
 public class OrderServiceImpl implements OrderService {
 	
     private static final Logger LOGGER = LoggerFactory.getLogger(OrderServiceImpl.class);
 	
     private OrderRepository OrderRepository;
-
-    
-
-  
 
     @Autowired
     public OrderServiceImpl(OrderRepository OrderRepository) {

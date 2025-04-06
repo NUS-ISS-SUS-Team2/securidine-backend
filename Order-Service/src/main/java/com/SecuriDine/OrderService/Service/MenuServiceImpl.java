@@ -7,6 +7,7 @@ import com.SecuriDine.OrderService.Util.AESUtil;
 import com.SecuriDine.OrderService.Util.HMACUtil;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,7 +17,7 @@ import com.SecuriDine.OrderService.Entity.Restaurant;
 import com.SecuriDine.OrderService.DTO.RestaurantDTO;
 import com.SecuriDine.OrderService.Service.RestaurantService;
 
-@Service
+@Component
 public class MenuServiceImpl {
 
     private final MenuRepository menuRepository;

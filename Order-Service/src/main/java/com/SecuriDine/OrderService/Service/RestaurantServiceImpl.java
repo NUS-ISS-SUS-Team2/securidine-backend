@@ -8,13 +8,14 @@ import com.SecuriDine.OrderService.Util.AESUtil;
 import com.SecuriDine.OrderService.Util.HMACUtil;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
 
-@Service
+@Component
 public class RestaurantServiceImpl {
 
     private final RestaurantRepository restaurantRepository;
