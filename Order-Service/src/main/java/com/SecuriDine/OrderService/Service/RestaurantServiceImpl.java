@@ -16,6 +16,7 @@ import java.util.Optional;
 
 
 @Component
+@Service
 public class RestaurantServiceImpl {
 
     private final RestaurantRepository restaurantRepository;

@@ -18,6 +18,7 @@ import com.SecuriDine.OrderService.DTO.RestaurantDTO;
 import com.SecuriDine.OrderService.Service.RestaurantService;
 
 @Component
+@Service
 public class MenuServiceImpl {
 
     private final MenuRepository menuRepository;
