@@ -37,7 +37,7 @@ public class MenuController {
         this.menuService = menuService;
     }
 
-    @GetMapping("/menu/getAllRestaurants")
+    @GetMapping("/menu/getAllMenuItems")
 	@ResponseBody
     public List<MenuDTO> getAllMenuItemsApi() throws Exception{
         System.out.println("getAll Menu items endpoint works!");
