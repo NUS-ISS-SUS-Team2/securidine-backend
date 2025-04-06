@@ -17,7 +17,7 @@ import java.util.Optional;
 
 @Component
 @Service
-public class RestaurantServiceImpl {
+public class RestaurantServiceImpl implements RestaurantService {
 
     private final RestaurantRepository restaurantRepository;
 
@@ -27,6 +27,7 @@ public class RestaurantServiceImpl {
     }
 
     // Save a restaurant (create or update)
+    @Override
     public RestaurantDTO saveRestaurant(RestaurantDTO restaurantDTO) throws Exception {
         Restaurant restaurant;
         if (restaurantDTO.getRestaurantId() != null) {
@@ -50,6 +51,7 @@ public class RestaurantServiceImpl {
 
    
     // Read all restaurants
+    @Override
     public List<RestaurantDTO> getAllRestaurants() throws Exception {
         List<Restaurant> restaurants = restaurantRepository.findAll();
         List<RestaurantDTO> restaurantDTOs = restaurants.stream()
@@ -65,6 +67,7 @@ public class RestaurantServiceImpl {
     }
 
     // Read a restaurant by ID
+    @Override
     public RestaurantDTO getRestaurantById(Long restaurantId) throws Exception {
         Optional<Restaurant> optionalRestaurant = restaurantRepository.findById(restaurantId);
         if (optionalRestaurant.isPresent()) {
@@ -76,11 +79,13 @@ public class RestaurantServiceImpl {
     }
 
     // Delete a restaurant
+    @Override
     public void deleteRestaurant(Long restaurantId) {
         restaurantRepository.deleteById(restaurantId);
     }
 
     // Verify HMAC for a restaurant
+    @Override
     public boolean verifyRestaurantHMAC(Long restaurantId) throws Exception {
         Optional<Restaurant> optionalRestaurant = restaurantRepository.findById(restaurantId);
         if (optionalRestaurant.isPresent()) {

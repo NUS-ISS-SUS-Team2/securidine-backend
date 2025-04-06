@@ -10,16 +10,16 @@ import org.springframework.stereotype.Service;
 
 public interface MenuService {
 	
-    List<MenuDTO> getAllMenuItems();
+    List<MenuDTO> getAllMenuItems() throws Exception;
 
     
-    MenuDTO getMenuItemById(Long menuId);
+    MenuDTO getMenuItemById(Long menuId) throws Exception;
     
     
-    void deleteMenuItem(Long menuId);
+    void deleteMenuItem(Long menuId) throws Exception;
 
 	
-    MenuDTO saveMenuItem(MenuDTO menuDTO);
+    MenuDTO saveMenuItem(MenuDTO menuDTO) throws Exception;
 
 	
 

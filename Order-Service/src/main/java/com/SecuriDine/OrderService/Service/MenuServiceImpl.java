@@ -19,7 +19,7 @@ import com.SecuriDine.OrderService.Service.RestaurantService;
 
 @Component
 @Service
-public class MenuServiceImpl {
+public class MenuServiceImpl implements MenuService{
 
     private final MenuRepository menuRepository;
     private RestaurantService restaurantService;
