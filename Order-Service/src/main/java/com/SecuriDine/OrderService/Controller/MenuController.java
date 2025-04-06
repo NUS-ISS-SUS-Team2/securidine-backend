@@ -27,7 +27,7 @@ import com.SecuriDine.OrderService.Service.MenuServiceImpl;
 @RestController
 public class MenuController {
 
-    private final MenuService menuService;
+    private MenuService menuService;
 
     private static final Logger LOGGER = LoggerFactory.getLogger(OrderController.class);
 	
