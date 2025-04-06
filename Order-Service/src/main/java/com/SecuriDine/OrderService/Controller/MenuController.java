@@ -39,7 +39,7 @@ public class MenuController {
 
     @GetMapping("/menu/getAllRestaurants")
 	@ResponseBody
-    public List<MenuDTO> getAllMenuItemsApi(){
+    public List<MenuDTO> getAllMenuItemsApi() throws Exception{
         System.out.println("getAll Menu items endpoint works!");
 		LOGGER.info("LOG - CALLING Menu CONTROLLER");
 	    List <MenuDTO> getAllMenuItems = menuService.getAllMenuItems();

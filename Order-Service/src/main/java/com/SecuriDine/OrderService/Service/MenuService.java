@@ -16,7 +16,7 @@ public interface MenuService {
     MenuDTO getMenuItemById(Long menuId) throws Exception;
     
     
-    void deleteMenuItem(Long menuId) throws Exception;
+    void deleteMenuItem(Long menuId);
 
 	
     MenuDTO saveMenuItem(MenuDTO menuDTO) throws Exception;

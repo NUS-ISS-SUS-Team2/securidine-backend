@@ -38,7 +38,7 @@ public class RestaurantController {
 	
 	@GetMapping("/restaurant/getAllRestaurants")
 	@ResponseBody
-    public List<RestaurantDTO> getAllRestaurantsApi(){
+    public List<RestaurantDTO> getAllRestaurantsApi() throws Exception{
         System.out.println("getAll Restaurant endpoint works!");
 		LOGGER.info("LOG - CALLING Restaurant CONTROLLER");
 	    List <RestaurantDTO> getAllRestaurants = restaurantService.getAllRestaurants();

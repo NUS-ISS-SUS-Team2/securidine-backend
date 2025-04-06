@@ -11,20 +11,12 @@ import org.springframework.stereotype.Service;
 public interface RestaurantService {
 
     List<RestaurantDTO> getAllRestaurants() throws Exception;
-    
-    
-    RestaurantDTO getRestaurantById(Long restaurantId) throws Exception;
-
    
-    void deleteRestaurant(Long restaurantId) throws Exception;
-
+    RestaurantDTO getRestaurantById(Long restaurantId) throws Exception;
+   
+    void deleteRestaurant(Long restaurantId);
 	
     RestaurantDTO saveRestaurant(RestaurantDTO restaurantDTO) throws Exception;
-
-
-	boolean verifyRestaurantHMAC(Long restaurantId) throws Exception;
-
-	
 
 }
 

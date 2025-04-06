@@ -85,7 +85,6 @@ public class RestaurantServiceImpl implements RestaurantService {
     }
 
     // Verify HMAC for a restaurant
-    @Override
     public boolean verifyRestaurantHMAC(Long restaurantId) throws Exception {
         Optional<Restaurant> optionalRestaurant = restaurantRepository.findById(restaurantId);
         if (optionalRestaurant.isPresent()) {

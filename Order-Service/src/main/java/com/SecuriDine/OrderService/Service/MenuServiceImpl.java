@@ -30,6 +30,7 @@ public class MenuServiceImpl implements MenuService{
     }
 
     // Save a menu item (create or update)
+    @Override
     public MenuDTO saveMenuItem(MenuDTO menuDTO) throws Exception {
         Menu menuItem;
         if (menuDTO.getMenuId() != null) {
@@ -67,6 +68,7 @@ public class MenuServiceImpl implements MenuService{
     }
 
     // Read all menu items
+    @Override
     public List<MenuDTO> getAllMenuItems() throws Exception {
         List<Menu> menuItems = menuRepository.findAll();
         return menuItems.stream()
@@ -81,6 +83,7 @@ public class MenuServiceImpl implements MenuService{
     }
 
     // Read a menu item by ID
+    @Override
     public MenuDTO getMenuItemById(Long menuId) throws Exception {
         Optional<Menu> optionalMenuItem = menuRepository.findById(menuId);
         if (optionalMenuItem.isPresent()) {
@@ -92,6 +95,7 @@ public class MenuServiceImpl implements MenuService{
     }
 
     // Delete a menu item
+    @Override
     public void deleteMenuItem(Long menuId) {
         menuRepository.deleteById(menuId);
     }
