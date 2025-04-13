@@ -8,6 +8,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
+import java.util.List;
+
 
 @Repository
 public interface RestaurantRepository extends JpaRepository<Restaurant, Long> {
@@ -15,5 +17,8 @@ public interface RestaurantRepository extends JpaRepository<Restaurant, Long> {
     // Custom query example (if needed later)
 	@Query("SELECT r FROM Restaurant r WHERE r.restaurantId = :restaurantId")
     Optional<Restaurant> findById(@Param("restaurantId")Long id);
+
+     @Query("SELECT r FROM Restaurant r")
+    List<Restaurant> getAllRestaurants();
 
 }

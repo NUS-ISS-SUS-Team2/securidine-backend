@@ -7,6 +7,9 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
+
 @Repository
 public interface MenuRepository extends JpaRepository<Menu, Long> {
 
@@ -15,4 +18,7 @@ public interface MenuRepository extends JpaRepository<Menu, Long> {
 
     // Find by item name (optional)
     List<Menu> findByItemNameContainingIgnoreCase(String itemName);
+
+    @Query("SELECT m FROM Menu m")
+    List<Menu> getAllMenuItems();
 }

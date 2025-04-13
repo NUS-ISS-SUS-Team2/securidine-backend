@@ -17,12 +17,22 @@ import com.SecuriDine.OrderService.Entity.Restaurant;
 import com.SecuriDine.OrderService.DTO.RestaurantDTO;
 import com.SecuriDine.OrderService.Service.RestaurantService;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+import java.util.stream.StreamSupport;
+
+
+
 @Component
 @Service
 public class MenuServiceImpl implements MenuService{
 
-    private final MenuRepository menuRepository;
+    private  MenuRepository menuRepository;
     private RestaurantService restaurantService;
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(MenuServiceImpl.class);
 
     @Autowired
     public MenuServiceImpl(MenuRepository menuRepository) {
@@ -68,18 +78,51 @@ public class MenuServiceImpl implements MenuService{
     }
 
     // Read all menu items
-    @Override
-    public List<MenuDTO> getAllMenuItems() throws Exception {
-        List<Menu> menuItems = menuRepository.findAll();
-        return menuItems.stream()
-                .map(menuItem -> {
-                    try {
-                        return menuItem.convertToDTO();
-                    } catch (Exception e) {
-                        throw new RuntimeException(e);
-                    }
-                })
-                .toList();
+    // @Override
+    // public List<MenuDTO> getAllMenuItems() throws Exception {
+    //     List<Menu> menuItems = menuRepository.findAll();
+    //     return menuItems.stream()
+    //             .map(menuItem -> {
+    //                 try {
+    //                     return menuItem.convertToDTO();
+    //                 } catch (Exception e) {
+    //                     throw new RuntimeException(e);
+    //                 }
+    //             })
+    //             .toList();
+    // }
+
+
+
+     @Override
+    public List<MenuDTO> getAllMenuItems() {
+    	LOGGER.info("LOG FOR Menu - In GET ALL Menu Items");
+    	Stream<Menu> Menustream = StreamSupport.stream(menuRepository
+    								.findAll().spliterator(), false)
+					                .filter(menu -> {
+					                    try {
+					                        boolean isValid = menu.verifyHMAC();
+					                        if (!isValid) {
+					                            LOGGER.warn("HMAC verification failed for menu item ID: " + menu.getMenuId());
+					                        }
+					                        return isValid;
+					                    } catch (Exception e) {
+					                        LOGGER.error("Error verifying HMAC for menu item ID: " + menu.getMenuId(), e);
+					                        return false;  // Exclude corrupted orders
+					                    }
+					                });
+        
+    	
+    	return Menustream
+                .map(menu -> {
+            try {
+                return menu.convertToDTO();
+            } catch (Exception e) {
+                LOGGER.error("Error converting restaurant to DTO for ID: " + menu.getMenuId(), e);
+                return null;
+            }
+        })
+                .collect(Collectors.toList());
     }
 
     // Read a menu item by ID
