@@ -23,7 +23,7 @@ import com.SecuriDine.OrderService.Repository.OrderRepository;
 import com.SecuriDine.OrderService.Service.OrderService;
 import com.SecuriDine.OrderService.Service.OrderServiceImpl;
 
-@CrossOrigin(origins = {"https://nusiss-sus-project.online","https://ordersapi.nusiss-sus-project.online", "https://0vhwby6emi.execute-api.ap-southeast-1.amazonaws.com/prod"})
+@CrossOrigin(origins = {"https://nusiss-sus-project.online","https://ordersapi.nusiss-sus-project.online", "https://0vhwby6emi.execute-api.ap-southeast-1.amazonaws.com/prod", "https://main.dpj6wj2cvwzki.amplifyapp.com"})
 @RestController
 public class OrderController {
 
