@@ -23,7 +23,10 @@ import com.SecuriDine.OrderService.Repository.OrderRepository;
 import com.SecuriDine.OrderService.Service.OrderService;
 import com.SecuriDine.OrderService.Service.OrderServiceImpl;
 
-@CrossOrigin
+@CrossOrigin(
+		origins = {"https://nusiss-sus-project.online", "https://main.dpj6wj2cvwzki.amplifyapp.com"}, 
+		allowedHeaders = "*",
+		allowCredentials = "true")
 @RestController
 public class OrderController {
 

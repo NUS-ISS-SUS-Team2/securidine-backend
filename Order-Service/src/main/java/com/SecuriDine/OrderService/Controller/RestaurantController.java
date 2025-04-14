@@ -23,7 +23,10 @@ import com.SecuriDine.OrderService.Repository.RestaurantRepository;
 import com.SecuriDine.OrderService.Service.RestaurantService;
 import com.SecuriDine.OrderService.Service.RestaurantServiceImpl;
 
-@CrossOrigin
+@CrossOrigin(
+		origins = {"https://nusiss-sus-project.online", "https://main.dpj6wj2cvwzki.amplifyapp.com"}, 
+		allowedHeaders = "*",
+		allowCredentials = "true")
 @RestController
 public class RestaurantController {
 

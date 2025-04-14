@@ -23,7 +23,10 @@ import com.SecuriDine.OrderService.Repository.MenuRepository;
 import com.SecuriDine.OrderService.Service.MenuService;
 import com.SecuriDine.OrderService.Service.MenuServiceImpl;
 
-@CrossOrigin
+@CrossOrigin(
+		origins = {"https://nusiss-sus-project.online", "https://main.dpj6wj2cvwzki.amplifyapp.com"}, 
+		allowedHeaders = "*",
+		allowCredentials = "true")
 @RestController
 public class MenuController {
 
