@@ -15,7 +15,7 @@ public class CorsConfig {
     @Bean
     public CorsFilter corsFilter() {
         CorsConfiguration corsConfig = new CorsConfiguration();
-        corsConfig.setAllowedOrigins(Arrays.asList("https://localhost:4200", "https://nusiss-sus-project.online", "http://localhost:8080"));
+        corsConfig.setAllowedOrigins(Arrays.asList("https://localhost:4200", "https://nusiss-sus-project.online", "http://localhost:8080", "https://main.dpj6wj2cvwzki.amplifyapp.com"));
         corsConfig.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE"));
         corsConfig.addAllowedHeader("*");
         corsConfig.setAllowCredentials(true);
