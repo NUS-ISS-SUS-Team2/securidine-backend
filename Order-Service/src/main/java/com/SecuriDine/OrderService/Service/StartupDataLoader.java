@@ -53,11 +53,11 @@ public class StartupDataLoader implements CommandLineRunner {
 		// ------------------------------------------------------------------------------------------------------------------------------
         // Define a list of restaurants
         List<Map<String, String>> restaurants = List.of(
-            Map.of("name", "Example Restaurant", "location", "456 Broadway, NY"),
+            Map.of("name", "Spice & Soul", "location", "456 Broadway, NY"),
             Map.of("name", "Pizza Palace", "location", "101 Main St, LA"),
-            Map.of("name", "Burger Barn", "location", "202 Elm St, TX"),
+            Map.of("name", "Harvest & Heart", "location", "202 Elm St, TX"),
             Map.of("name", "Taco Town", "location", "303 Oak St, AZ"),
-            Map.of("name", "Sushi Central", "location", "404 Pine St, CA")
+            Map.of("name", "Burger Barn", "location", "404 Pine St, CA")
         );
 
         // SQL insert statement
