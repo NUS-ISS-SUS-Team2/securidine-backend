@@ -6,6 +6,9 @@ import com.SecuriDine.OrderService.Util.AESUtil;
 import com.SecuriDine.OrderService.Util.HMACUtil;
 
 import java.util.List;
+import java.util.ArrayList;
+import java.util.Collections;
+import com.SecuriDine.OrderService.DTO.MenuDTO;
 
 @Entity
 @Table(name = "restaurants")
@@ -82,6 +85,15 @@ public class Restaurant {
         dto.setRestaurantId(this.restaurantId);
         dto.setName(getName());
         dto.setLocation(getLocation());
+        if (menuItems != null) {
+        List<MenuDTO> menus = new ArrayList<>();
+        for (Menu menu : menuItems) {
+            menus.add(menu.convertToDTO());  // MenuDTO objects
+        }
+        dto.setMenuItems(menus);
+    } else {
+        dto.setMenuItems(Collections.emptyList());
+    }
         return dto;
     }
 }
